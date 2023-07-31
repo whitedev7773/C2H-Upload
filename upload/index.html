@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>C2H Upload</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>C2H Upload</h1>
-  <form>
-    <input type="file" id="fileInput" multiple /><br><br>
-    <button type="button" onclick="uploadFiles()">Upload</button>
-  </form>
-  <div id="progressBars"></div>
-  <div id="progressStatus"></div>
+  <div id="app">
+    <h1>C2H Upload</h1>
+    <form>
+      <input type="file" id="fileInput" multiple /><br><br>
+      <button type="button" onclick="uploadFiles()">Upload</button>
+    </form>
+    <div id="progressBars"></div>
+    <div id="progressStatus"></div>
+  </div>
 
   <script>
     function uploadFiles() {
@@ -49,4 +50,6 @@
     }
   </script>
 </body>
+<style>
+</style>
 </html>
