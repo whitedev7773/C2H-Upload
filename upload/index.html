@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>C2H Upload</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>C2H Upload</h1>
+  <form>
+    <input type="file" id="fileInput" multiple /><br><br>
+    <button type="button" onclick="uploadFiles()">Upload</button>
+  </form>
+  <div id="progressBars"></div>
+  <div id="progressStatus"></div>
+
+  <script>
+    function uploadFiles() {
+      const fileInput = document.getElementById('fileInput');
+      const progressBars = document.getElementById('progressBars');
+      const progressStatus = document.getElementById('progressStatus');
+
+      const files = fileInput.files;
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i], files[i].name); // 파일과 함께 원본 이름 추가
+      }
+
+      const xhr = new XMLHttpRequest();
+
+      xhr.upload.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          progressBars.innerHTML = '';
+          for (let i = 0; i < files.length; i++) {
+            const progressBar = document.createElement('div');
+            progressBar.style.width = percentComplete + '%';
+            progressBar.style.height = '20px';
+            progressBar.style.backgroundColor = '#4CAF50';
+            progressBars.appendChild(progressBar);
+          }
+          progressStatus.innerHTML = `${percentComplete.toFixed(2)}% uploaded`;
+        }
+      });
+
+      xhr.open('POST', 'http://localhost:3000/'); // 서버 주소를 적절히 변경
+      xhr.send(formData);
+    }
+  </script>
+</body>
+</html>
